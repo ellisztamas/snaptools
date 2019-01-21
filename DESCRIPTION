@@ -1,0 +1,16 @@
+Package: snaptools
+Type: Package
+Title: Tools for analysing data from the snapdragon hybrid zone
+Version: 0.1.0
+Author: Tom Ellis
+Maintainer: Tom Ellis <thomas.ellis@gmi.oeaw.ac.at>
+Description: snaptools provides tools for running common operations on
+    data from the Antirrhinum majus hybrid zone project. The aim is to provide
+    functions for some specific tasks that multiple people might want to implement,
+    to avoid replication of effort and creeping errors.
+License: MIT + file LICENSE
+URL: https://github.com/ellisztamas/sintillate
+BugReports: https://github.com/ellisztamas/sintillate/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
