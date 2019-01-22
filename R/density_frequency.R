@@ -3,11 +3,18 @@
 #' For a set of flocal plants you are interested in, calculate the density of
 #' neighbouring plants, and (optionally) their local phenotypic frequency.
 #'
-#' Density can be calculated either as the number of neighbours within a given
-#' radius, or as the sum of a weighted Gaussian function to all plants in the
-#' population. The latter has the advantage of smoothing distances, and ensuring
-#' that nearer neighbours have a greater influence than mor distant neighbours.
-#' However, interpretation is not as straightforward as using a fixed radius.
+#' Density can be calculated two ways. Most simply, we can count the number of
+#' neighbours within a given radius, which is simple to interpret, but gives
+#' coarse resolution. I have found that small changes to the radius can have
+#' enormous effects on estimates of density.
+#'
+#' Alternatively, one can apply a Gaussian function to distances using the
+#' standard deviation parameter as a scale. The density of plants around a
+#' focal plant is then the sum of this function on distances to all neighbours
+#' in the population. This has the advantage of smoothing effects with distance,
+#' and ensuring that nearer neighbours have a greater influence than mor distant
+#' neighbours. However, interpretation is not as straightforward as using a
+#' fixed radius.
 #'
 #' Phenotypic frequency is defined as the density of neighbours of the same
 #' phenotype relative to the density of all neighbours. Thus, it is only defined
@@ -33,6 +40,10 @@
 #' supplied, a data.frame of densities and phenotypic frequencies are returned.
 #'
 #' @author Tom Ellis
+#' @references Ellis T (2016), "*The role of pollinator-mediated selection in the
+#' maintenance of a flower color polymorphism in an Antirrhinum majus hybrid
+#' zone*", PhD thesis, IST Austria, available at https://repository.ist.ac.at/526/
+#'
 density_frequency <- function(focal, population, scale, focal_phenotypes = NULL, population_phenotypes= NULL, density_function='gaussian'){
   if(ncol(focal) != ncol(population)){
     stop("Number of columsn in focal does not match populations")

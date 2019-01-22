@@ -1,22 +1,24 @@
 #' Value matching for RametIDs
-#' 
+#'
 #' `match_ramet` returns a vector of the positions of (first) matches of
 #' individual Antspec IDs in in a vector of RametIDs.
-#' 
+#'
 #' We often have data for a ste of plants from the field, but the Antspec IDs
 #' might not match the unique IDs after duplicate genotypes have been filtered.
 #' Instead, we get a table with a column "RametID" that gives names of likely
 #' duplicates as a string, which is difficult to parse.
-#' 
+#'
 #' `match_ramet` works like the base R function `match` in that it finds the
 #' (first) position of your AntspecIDs in the column of RametIDs.
-#' 
+#'
 #' @param input Vector of AntspecIDs for plants you would like to extract for.
 #' @param plantIDs Vector of primary genet names.
 #' @param rametIDs Vector of RametID strings.
-#' 
+#'
 #' @return And vector of integers giving the position of each element in input
 #' in the vector of rametIDs. Use this to subset the Antspec data.table.
+#'
+#' @author Tom Ellis
 match_ramet <- function(input, plantIDs, rametIDs){
   if(any(input == -9)){
     input[input == -9] <- NA
