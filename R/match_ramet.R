@@ -11,6 +11,9 @@
 #' `match_ramet` works like the base R function `match` in that it finds the
 #' (first) position of your AntspecIDs in the column of RametIDs.
 #'
+#' Note that `match_ramet` assumes that there are
+#' no more than five names in any entry in `RametIDs`.
+#'
 #' @param input Vector of AntspecIDs for plants you would like to extract for.
 #' @param plantIDs Vector of primary genet names.
 #' @param rametIDs Vector of RametID strings.

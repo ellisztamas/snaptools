@@ -28,6 +28,16 @@ If phenotype categories are given, it also returns the phenotypic frequency of
 the focal plants as the density of neighbours of the same phenotype divided by
 the density of all neighbours.
 
+## Installation
+
+`snaptools` can be installed from with R straight from GitHub using `devtools`.
+
+```
+devtools::install_github("ellisztamas/snaptools")
+```
+
+If you don't have `devtools` installed, install it with `install.packages('devtools')`.
+
 ## Dependencies
 None
 
