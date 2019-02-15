@@ -21,6 +21,7 @@
 #' @return And vector of integers giving the position of each element in input
 #' in the vector of rametIDs. Use this to subset the Antspec data.table.
 #'
+#' @export
 #' @author Tom Ellis
 match_ramet <- function(input, plantIDs, rametIDs){
   if(any(input == -9)){

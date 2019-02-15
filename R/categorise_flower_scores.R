@@ -19,7 +19,7 @@
 #' @return Data frame listing flower colour phenotype (yellow, white, weak orange,
 #' full orange, weak rea and full red), and genotypes for \emph{Rosea}
 #' and /emph{Sulfurea}.
-#'
+#' @export
 categorise_flower_scores <- function(red, yellow){
     flower_colour <- rep(NA, length(red)) # empty vector to store values
 
