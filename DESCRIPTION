@@ -1,7 +1,7 @@
 Package: snaptools
 Type: Package
 Title: Tools for analysing data from the snapdragon hybrid zone
-Version: 0.1.1
+Version: 0.1.2
 Author: Tom Ellis
 Maintainer: Tom Ellis <thomas.ellis@gmi.oeaw.ac.at>
 Description: snaptools provides tools for running common operations on

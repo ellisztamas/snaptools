@@ -43,6 +43,7 @@
 #' @references Ellis T (2016), "*The role of pollinator-mediated selection in the
 #' maintenance of a flower color polymorphism in an Antirrhinum majus hybrid
 #' zone*", PhD thesis, IST Austria, available at https://repository.ist.ac.at/526/
+#'
 #' @export
 density_frequency <- function(focal, population, scale, focal_phenotypes = NULL, population_phenotypes= NULL, density_function='gaussian'){
   if(ncol(focal) != ncol(population)){
