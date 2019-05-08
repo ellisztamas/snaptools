@@ -74,7 +74,7 @@ density_frequency <- function(focal, population, scale, shape=2, focal_phenotype
   }else if(density_function == "generalised"){
     # Use the generalised gaussian probability function.
     # If shape=2 (default), this should return the same as if `density_function == "gaussian`
-    count_matrix <- d_generalised_gaussian(dist_mat,  scale = scale, shape=shape)
+    count_matrix <- dgennorm(dist_mat,  scale = scale, shape=shape)
   } else if(density_function == "radius"){
     # If using a discrete radius, count the number of neighbours with a set radius.
     count_matrix <- dist_mat < scale
