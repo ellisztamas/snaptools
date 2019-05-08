@@ -4,8 +4,9 @@
 \alias{density_frequency}
 \title{Plant density and phenotypic frequency}
 \usage{
-density_frequency(focal, population, scale, focal_phenotypes = NULL,
-  population_phenotypes = NULL, density_function = "gaussian")
+density_frequency(focal, population, scale, shape = 2,
+  focal_phenotypes = NULL, population_phenotypes = NULL,
+  density_function = "gaussian")
 }
 \arguments{
 \item{focal, population}{Positional information about a set of focal plants
@@ -16,16 +17,23 @@ each axis. Arbitrary numbers of coordinate axes are allowed.}
 \item{scale}{Float indicating the scale at which to look at neighbours.
 If `density_function` is set to `gaussian`, this is the standard deviation of
 the Gaussian function to use.
+If `density_function` is set to `generalised`, this the `scale` paramater of the
+generalised gaussian function. See ?snaptools::d_generalised_gaussian for
+details.
 If `density_function` is set to `radius`, this is the radius within which
 plants are classified as neighbours.}
+
+\item{shape}{Shape parameter for the generalised gaussian distribution. Only
+functional if `density_function` is set to `generalised`.
+See ?snaptools::d_generalised_gaussian for details.}
 
 \item{focal_phenotypes, population_phenotypes}{Optional vectors of phenotype
 data for each individual in focal and population.}
 
 \item{density_function}{String indicating whether to calculate density using
 a Gaussian function of distance, or counting the number of neighbours within
-a certain radius. Must take the values 'gaussian' or 'radius'. See
-`Description` for details.}
+a certain radius. Must take the values 'gaussian', generalised or 'radius'.
+See `Description` for details.}
 }
 \value{
 A vector of densities for each plant in focal. If phenotypes are
@@ -48,6 +56,12 @@ in the population. This has the advantage of smoothing effects with distance,
 and ensuring that nearer neighbours have a greater influence than mor distant
 neighbours. However, interpretation is not as straightforward as using a
 fixed radius.
+
+Thirdly, the Gaussian approach can be extended by using a generalised Gaussian
+distribution by specifying a `shape` parameter. This distribution is useful
+for describing dispersal kernels, because it allows for rare long-distance
+migration by modelling this as leptokurtosis.
+See ?snaptools::d_generalised_gaussian for details.
 
 Phenotypic frequency is defined as the density of neighbours of the same
 phenotype relative to the density of all neighbours. Thus, it is only defined

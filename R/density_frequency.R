@@ -16,6 +16,12 @@
 #' neighbours. However, interpretation is not as straightforward as using a
 #' fixed radius.
 #'
+#' Thirdly, the Gaussian approach can be extended by using a generalised Gaussian
+#' distribution by specifying a `shape` parameter. This distribution is useful
+#' for describing dispersal kernels, because it allows for rare long-distance
+#' migration by modelling this as leptokurtosis.
+#' See ?snaptools::d_generalised_gaussian for details.
+#'
 #' Phenotypic frequency is defined as the density of neighbours of the same
 #' phenotype relative to the density of all neighbours. Thus, it is only defined
 #' for categorical phenotypes.
@@ -27,14 +33,20 @@
 #' @param scale Float indicating the scale at which to look at neighbours.
 #' If `density_function` is set to `gaussian`, this is the standard deviation of
 #' the Gaussian function to use.
+#' If `density_function` is set to `generalised`, this the `scale` paramater of the
+#' generalised gaussian function. See ?snaptools::d_generalised_gaussian for
+#' details.
 #' If `density_function` is set to `radius`, this is the radius within which
 #' plants are classified as neighbours.
+#' @param shape Shape parameter for the generalised gaussian distribution. Only
+#' functional if `density_function` is set to `generalised`.
+#' See ?snaptools::d_generalised_gaussian for details.
 #' @param focal_phenotypes,population_phenotypes Optional vectors of phenotype
 #' data for each individual in focal and population.
 #' @param density_function String indicating whether to calculate density using
 #' a Gaussian function of distance, or counting the number of neighbours within
-#' a certain radius. Must take the values 'gaussian' or 'radius'. See
-#' `Description` for details.
+#' a certain radius. Must take the values 'gaussian', generalised or 'radius'.
+#' See `Description` for details.
 #'
 #' @return A vector of densities for each plant in focal. If phenotypes are
 #' supplied, a data.frame of densities and phenotypic frequencies are returned.
@@ -45,7 +57,7 @@
 #' zone*", PhD thesis, IST Austria, available at https://repository.ist.ac.at/526/
 #'
 #' @export
-density_frequency <- function(focal, population, scale, focal_phenotypes = NULL, population_phenotypes= NULL, density_function='gaussian'){
+density_frequency <- function(focal, population, scale, shape=2, focal_phenotypes = NULL, population_phenotypes= NULL, density_function='gaussian'){
   if(ncol(focal) != ncol(population)){
     stop("Number of columsn in focal does not match populations")
   }
@@ -59,6 +71,10 @@ density_frequency <- function(focal, population, scale, focal_phenotypes = NULL,
   if(density_function == "gaussian"){
     # If Gaussian weighting is used, this is the value of the Gaussian function for each pairwise distance
     count_matrix <- dnorm(dist_mat, sd = scale)
+  }else if(density_function == "generalised"){
+    # Use the generalised gaussian probability function.
+    # If shape=2 (default), this should return the same as if `density_function == "gaussian`
+    count_matrix <- d_generalised_gaussian(dist_mat,  scale = scale, shape=shape)
   } else if(density_function == "radius"){
     # If using a discrete radius, count the number of neighbours with a set radius.
     count_matrix <- dist_mat < scale
