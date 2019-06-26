@@ -24,6 +24,14 @@
 categorise_flower_scores <- function(red, yellow){
     flower_colour <- rep(NA, length(red)) # empty vector to store values
 
+    if(any(red == -9 | yellow == -9)){
+      warning("One or more colours scores have the value -9 and will be treated as NA.")
+      red[red == -9]       <- NA
+      yellow[yellow == -9] <- NA
+    }
+    if(any(yellow == 5)){
+      warning("One or more yellow scores is 5. If this is real, this is fine, but such plants are rare.")
+    }
     if(length(red) != length(yellow)){
       stop("Vectors of red and yellow scores are of unequal length.")
     }
@@ -35,11 +43,11 @@ categorise_flower_scores <- function(red, yellow){
     }
     # Assign flower_colourotypes
     flower_colour[(red >= 3   & red <= 5) & (yellow >= 0 & yellow < 2)] <- "FR"
-    flower_colour[(red >= 3   & red <= 5) & (yellow >= 2 & yellow <=4)] <- "FO"
+    flower_colour[(red >= 3   & red <= 5) & (yellow >= 2 & yellow <=5)] <- "FO"
     flower_colour[(red >= 1.5 & red <  3) & (yellow >= 0 & yellow < 2)] <- "WR"
-    flower_colour[(red >= 1.5 & red <  3) & (yellow >= 2 & yellow <=4)] <- "WO"
+    flower_colour[(red >= 1.5 & red <  3) & (yellow >= 2 & yellow <=5)] <- "WO"
     flower_colour[(red >= 0   & red <1.5) & (yellow >= 0 & yellow < 2)] <- "Wh"
-    flower_colour[(red >= 0   & red <1.5) & (yellow >= 2 & yellow <=4)] <- "Ye"
+    flower_colour[(red >= 0   & red <1.5) & (yellow >= 2 & yellow <=5)] <- "Ye"
 
     # Assign Ros genotypes
     rosea <- rep(NA, length(red))
