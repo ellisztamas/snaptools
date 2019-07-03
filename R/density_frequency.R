@@ -47,6 +47,10 @@
 #' a Gaussian function of distance, or counting the number of neighbours within
 #' a certain radius. Must take the values 'gaussian', generalised or 'radius'.
 #' See `Description` for details.
+#' @param density_correction Logical. If TRUE, the denominator for estimating
+#' frequency (i.e. the density of all plants) is calculated excluding plants
+#' with missing phenotype data. The estimate of overall density
+#' in the output is unaffected.
 #'
 #' @return A vector of densities for each plant in focal. If phenotypes are
 #' supplied, a data.frame of densities and phenotypic frequencies are returned.
@@ -57,7 +61,7 @@
 #' zone*", PhD thesis, IST Austria, available at https://repository.ist.ac.at/526/
 #'
 #' @export
-density_frequency <- function(focal, population, scale, shape=2, focal_phenotypes = NULL, population_phenotypes= NULL, density_function='gaussian'){
+density_frequency <- function(focal, population, scale, shape=2, focal_phenotypes = NULL, population_phenotypes= NULL, density_function='gaussian', density_correction=TRUE){
   if(ncol(focal) != ncol(population)){
     stop("Number of columsn in focal does not match populations")
   }
@@ -99,15 +103,27 @@ density_frequency <- function(focal, population, scale, shape=2, focal_phenotype
     }
 
     # Matrix of neighbours of the same phenotype as the focal plant.
-    match_matrix  <- lapply(focal_phenotypes, function(x) x == population_phenotypes)
+    match_matrix <- lapply(focal_phenotypes, function(x) x == population_phenotypes)
     match_matrix <- do.call('rbind', match_matrix)
     # Pairwise density scores for patching neighbours only.
     match_density <- rowSums(count_matrix * match_matrix, na.rm = TRUE)
-    # Phenotypic frequency is the frequency of matching neighbours relative to total density
-    frequency     <- match_density / density
 
+    if(density_correction){
+      # To calculate frequency, we need density of those plants for which there
+      # are colour data
+      # Correct count_matrix to account for this
+      density_c <- rowSums(count_matrix * !is.na(match_matrix), na.rm = TRUE)
+      # Phenotypic frequency is the frequency of matching neighbours relative to
+      # total density, corrected for missing flower colour data.
+      frequency     <- match_density / density_c
+    } else {
+      # Phenotypic frequency is the frequency of matching neighbours relative to
+      # total density
+      frequency     <- match_density / density
+    }
     return(data.frame(density, frequency))
-  } else{
+  } else {
     return(density)
   }
 }
+
