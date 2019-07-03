@@ -6,7 +6,7 @@
 \usage{
 density_frequency(focal, population, scale, shape = 2,
   focal_phenotypes = NULL, population_phenotypes = NULL,
-  density_function = "gaussian")
+  density_function = "gaussian", density_correction = TRUE)
 }
 \arguments{
 \item{focal, population}{Positional information about a set of focal plants
@@ -34,6 +34,11 @@ data for each individual in focal and population.}
 a Gaussian function of distance, or counting the number of neighbours within
 a certain radius. Must take the values 'gaussian', generalised or 'radius'.
 See `Description` for details.}
+
+\item{density_correction}{Logical. If TRUE, the denominator for estimating
+frequency (i.e. the density of all plants) is calculated excluding plants
+with missing phenotype data. The estimate of overall density
+in the output is unaffected.}
 }
 \value{
 A vector of densities for each plant in focal. If phenotypes are
