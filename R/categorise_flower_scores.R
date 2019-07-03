@@ -24,13 +24,10 @@
 categorise_flower_scores <- function(red, yellow){
     flower_colour <- rep(NA, length(red)) # empty vector to store values
 
-    if(any(red == -9 | yellow == -9)){
+    if(any(na.omit(red == -9 | yellow == -9))){
       warning("One or more colours scores have the value -9 and will be treated as NA.")
       red[red == -9]       <- NA
       yellow[yellow == -9] <- NA
-    }
-    if(any(yellow == 5)){
-      warning("One or more yellow scores is 5. If this is real, this is fine, but such plants are rare.")
     }
     if(length(red) != length(yellow)){
       stop("Vectors of red and yellow scores are of unequal length.")
@@ -38,8 +35,11 @@ categorise_flower_scores <- function(red, yellow){
     if(any(red > 5 | red<0, na.rm = T)){
       stop("One or more values of red scores are greater than 5 or less than 0.")
     }
-    if(any(yellow > 4 | yellow<0, na.rm = T)){
-      stop("One or more values of yellow scores are greater than 4 or less than 0.")
+    if(any(yellow > 5 | yellow<0, na.rm = T)){
+      stop("One or more values of yellow scores are greater than 5 or less than 0.")
+      if(any(na.omit(yellow > 4 & yellow <=5))){
+        warning("One or more yellow scores is between 4 and 5. If this is real, this is fine, but such plants are rare.")
+      }
     }
     # Assign flower_colourotypes
     flower_colour[(red >= 3   & red <= 5) & (yellow >= 0 & yellow < 2)] <- "FR"
