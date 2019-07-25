@@ -3,4 +3,5 @@
 export(categorise_flower_scores)
 export(density_frequency)
 export(dgennorm)
+export(lgc2faps)
 export(match_ramet)
