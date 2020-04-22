@@ -28,6 +28,15 @@ If phenotype categories are given, it also returns the phenotypic frequency of
 the focal plants as the density of neighbours of the same phenotype divided by
 the density of all neighbours.
 
+* `lgc2faps`: Convert a dataframe from the table of strings we get from LGC to
+a data.frame of integers. Output format can be imported into FAPS directly for
+paternity analysis.
+
+* `dgennorm`: Calculate the PDF of the generalised normal distribution.
+
+* `vectorise_locus`: Convert a vector of raw data from LGC into a vector of
+inetegers.
+
 ## Installation
 
 `snaptools` can be installed from with R straight from GitHub using `devtools`.
