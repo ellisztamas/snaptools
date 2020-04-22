@@ -37,7 +37,7 @@ paternity analysis.
 * `vectorise_locus`: Convert a vector of raw data from LGC into a vector of
 inetegers.
 
-## Installation and usage
+## Installation
 
 `snaptools` can be installed from with R straight from GitHub using `devtools`.
 
