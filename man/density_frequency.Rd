@@ -4,9 +4,16 @@
 \alias{density_frequency}
 \title{Plant density and phenotypic frequency}
 \usage{
-density_frequency(focal, population, scale, shape = 2,
-  focal_phenotypes = NULL, population_phenotypes = NULL,
-  density_function = "gaussian", density_correction = TRUE)
+density_frequency(
+  focal,
+  population,
+  scale,
+  shape = 2,
+  focal_phenotypes = NULL,
+  population_phenotypes = NULL,
+  density_function = "gaussian",
+  density_correction = TRUE
+)
 }
 \arguments{
 \item{focal, population}{Positional information about a set of focal plants

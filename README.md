@@ -28,7 +28,16 @@ If phenotype categories are given, it also returns the phenotypic frequency of
 the focal plants as the density of neighbours of the same phenotype divided by
 the density of all neighbours.
 
-## Installation
+* `lgc2faps`: Convert a dataframe from the table of strings we get from LGC to
+a data.frame of integers. Output format can be imported into FAPS directly for
+paternity analysis.
+
+* `dgennorm`: Calculate the PDF of the generalised normal distribution.
+
+* `vectorise_locus`: Convert a vector of raw data from LGC into a vector of
+inetegers.
+
+## Installation and usage
 
 `snaptools` can be installed from with R straight from GitHub using `devtools`.
 
@@ -37,6 +46,24 @@ devtools::install_github("ellisztamas/snaptools")
 ```
 
 If you don't have `devtools` installed, install it with `install.packages('devtools')`.
+
+Then you can import the package just like any other R package with:
+```
+library("snaptools")
+```
+
+This will also import the documentation for each function, which is the best
+place to go to find out what functions are doing. For example, to see what the
+function to calculate density and frequency is doing, run
+
+```
+library("snaptools")
+`?density_frequency
+```
+or
+```
+?snaptools::density_frequency
+```
 
 ## Dependencies
 None
