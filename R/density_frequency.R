@@ -66,6 +66,10 @@ density_frequency <- function(focal, population, scale, shape=2, focal_phenotype
     stop("Number of columsn in focal does not match populations")
   }
 
+  # If spatial information are tibbles, getting the Euclidean distances won't work.
+  # Coerce to data.frame
+  if(is_tibble(focal))           focal <- as.data.frame(focal)
+  if(is_tibble(population)) population <- as.data.frame(population)
   # Create a Euclidean distance matrix between all pairs of individuals.
   dist_mat <- matrix(0, nrow=nrow(focal), ncol=nrow(population))
   for(i in 1:ncol(focal)) dist_mat <- dist_mat + outer(focal[,i], population[,i], '-')^2 # squared distance for each axis
